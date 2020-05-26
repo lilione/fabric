@@ -1,12 +1,15 @@
-# Copyright Greg Haskins All Rights Reserved
-#
-# SPDX-License-Identifier: Apache-2.0
-#
-FROM _BASE_NS_/fabric-baseos:_BASE_TAG_
-ENV FABRIC_CFG_PATH /etc/hyperledger/fabric
-RUN mkdir -p /var/hyperledger/production $FABRIC_CFG_PATH
-COPY payload/peer /usr/local/bin
-ADD  payload/sampleconfig.tar.bz2 $FABRIC_CFG_PATH
+FROM lilione/fabric-peer:docker
 
-CMD ["peer","node","start"]
+WORKDIR /usr/src
+RUN git clone https://github.com/lilione/HoneyBadgerMPC.git
 
+# switch to fabric branch
+WORKDIR /usr/src/HoneyBadgerMPC
+RUN git checkout fabric
+
+# build hbmpc
+RUN pip3 install -e .['dev']
+
+# install pairing
+WORKDIR /usr/src/HoneyBadgerMPC
+RUN pip3 install -v pairing/
