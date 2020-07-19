@@ -568,7 +568,10 @@ chaincode:
         escc: enable
         vscc: enable
         qscc: enable
-        myscc: enable
+#        myscc: enable
+        supplychain_scc_1: enable
+        supplychain_scc_2: enable
+        supplychain_scc_3: enable
 
     # System chaincode plugins: in addition to being imported and compiled
     # into fabric through core/chaincode/importsysccs.go, system chaincodes
@@ -578,9 +581,24 @@ chaincode:
     # chaincode.system section above.
     systemPlugins:
       # example configuration:
+#       - enabled: true
+#         name: myscc
+#         path: /opt/lib/myscc.so
+#         invokableExternal: true
+#         invokableCC2CC: true
        - enabled: true
-         name: myscc
-         path: /opt/lib/myscc.so
+         name: supplychain_scc_1
+         path: /opt/lib/supplychain_scc_1.so
+         invokableExternal: true
+         invokableCC2CC: true
+       - enabled: true
+         name: supplychain_scc_2
+         path: /opt/lib/supplychain_scc_2.so
+         invokableExternal: true
+         invokableCC2CC: true
+       - enabled: true
+         name: supplychain_scc_3
+         path: /opt/lib/supplychain_scc_3.so
          invokableExternal: true
          invokableCC2CC: true
 
